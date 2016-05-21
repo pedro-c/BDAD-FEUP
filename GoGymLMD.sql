@@ -26,10 +26,18 @@ WHERE
 Aula.Nome = "Zumba";
 
 --Clientes que fizeram aulas em todas as salas dos ginasios.
+SELECT Nome FROM Cliente
+WHERE idCliente in
+(Select idCliente FROM AulaCliente
+GROUP BY idCliente
+HAVING COUNT (*) > 5);
+
+
+
+
 
 
 --Pares de clientes que frequentam a mesma modalidade, sem repetições.
-
 
 
 --Nome dos professores que deram aulas ao "Cristiano Ronaldo".
@@ -55,14 +63,15 @@ WHERE Cliente.Nome = "Cristiano Ronaldo"));
 --Dia e id dos Dias da Semana em que se deu aula de "zumba".
 
 
-
 -- Nome das aulas onde já ocorreu o número de clientes presentes na aula ser igual a lotação da aula.
 
 --Nome, id do cliente e id do contrato dos clientes que possuí treinador.
 
+
 --Nome,id do treinador e modalidades do treinador que possuí maior salário.
 
 --Aulas de "Yoga" que foram dadas na sala 4.
+
 
 --Nome e id dos clientes "Off-Peak" que realizaram aulas com a professora "Sancha".
 
