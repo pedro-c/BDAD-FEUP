@@ -35,7 +35,8 @@ CREATE TABLE Professor(idProfessor int REFERENCES Funcionario PRIMARY KEY);
 
 CREATE TABLE DiasDaSemana(dia STRING, 
                           idDiaDaSemana int PRIMARY KEY,
-                          HoraFim STRING, HoraInicio STRING,
+                          HoraFim STRING, 
+                          HoraInicio STRING,
                           idGinasio int REFERENCES Ginasio);
 
 CREATE TABLE Modalidade(nome STRING PRIMARY KEY);

@@ -56,11 +56,16 @@ join Cliente on
 AulaCliente.idCliente = Cliente.idCliente
 WHERE Cliente.Nome = "Cristiano Ronaldo"));
 
---Dia e id dos Dias da Semana em que se deu aula de "zumba".
-
+--Dias da Semana em que se deu aula de "zumba".
+SELECT dia
+FROM DiasDaSemana, HorarioAulas, Aula
+WHERE HorarioAulas.idDiaDaSemana = DiasDaSemana.idDiaDaSemana
+AND
+HorarioAulas.idAula = Aula.idAula
+AND
+Aula.Nome="Zumba";
 
 --Nome das aulas onde já ocorreu o número de clientes presentes na aula ser igual a lotação da aula.
-
 
 
 --Nome, id do cliente e id do contrato dos clientes que possuí treinador.
@@ -98,10 +103,26 @@ WHERE AulaCliente.idAula = Aula.idAula
 GROUP BY Aula.Nome 
 ORDER BY COUNT(*) DESC;
 
+--aulas que a Maria Joao frequentou
+SELECT Aula.Nome, DiasDaSemana.dia AS Dia, DiasDaSemana.HoraInicio
+FROM Aula, Cliente, AulaCliente, HorarioAulas, DiasDaSemana
+WHERE AulaCliente.idCliente=Cliente.idCliente
+AND Aula.idAula=AulaCliente.idAula
+AND AulaCliente.idAula = HorarioAulas.idAula
+ANd HorarioAulas.idDiaDaSemana=DiasDaSemana.idDiaDaSemana
+AND Cliente.Nome="Maria Joao";
 
+--nome de pagamentos em falta 
+SELECT Cliente.Nome
+FROM Contrato, Cliente
+WHERE Contrato.idCliente=Cliente.idCliente
+AND Contrato.DataUltimoPagamento < strftime('%Y%m%d', date('now','start of month'));
 
-
-
-
+--Clientes que nao estao inscritos em nenhuma aula
+SELECT Cliente.Nome 
+FROM Cliente
+WHERE Cliente.idCliente in
+(SELECT Cliente.idCliente FROM Cliente 
+EXCEPT SELECT AulaCliente.idCliente FROM AulaCliente);
 
 
