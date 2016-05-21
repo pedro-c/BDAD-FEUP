@@ -72,7 +72,7 @@ INSERT INTO DiasDaSemana VALUES("Sexta", 20, "19:40", "18:50", 1);
 INSERT INTO DiasDaSemana VALUES("Sabado", 21, "10:00", "09:00", 1);
 INSERT INTO DiasDaSemana VALUES("Domingo", 22, "09:30", "08:30", 1);
 INSERT INTO DiasDaSemana VALUES("Domingo", 23, "19:40", "18:40", 1);
-INSERT INTO DiasDaSemana VALUES("Domingo", 24, "16:40", "15:40", 1);
+INSERT INTO DiasDaSemana VALUES("Segunda", 24, "15:40", "14:40", 1);
 
 INSERT INTO Aula VALUES(1, 25, 1, 1, "Zumba");
 INSERT INTO Aula VALUES(2, 25, 2, 2, "Pilates");
@@ -83,6 +83,7 @@ INSERT INTO Aula VALUES(6, 25, 6, 6, "Body Pump");
 INSERT INTO Aula VALUES(7, 25, 7, 1, "Zumba");
 INSERT INTO Aula VALUES(8, 25, 8, 1, "Gap");
 INSERT INTO Aula VALUES(9, 25, 4, 4, "GAP");
+INSERT INTO Aula VALUES(10, 5, 4, 4, "TRX");
 
 
 
@@ -237,6 +238,11 @@ INSERT INTO AulaCliente VALUES(5,2);
 INSERT INTO AulaCliente VALUES(5,5);
 INSERT INTO AulaCliente VALUES(5,6);
 INSERT INTO AulaCliente VALUES(5,8);
+INSERT INTO AulaCliente VALUES(5,10);
+INSERT INTO AulaCliente VALUES(6,10);
+INSERT INTO AulaCliente VALUES(7,10);
+INSERT INTO AulaCliente VALUES(8,10);
+INSERT INTO AulaCliente VALUES(9,10);
 
 
 INSERT INTO HorarioAulas VALUES(1,8);
@@ -256,6 +262,8 @@ INSERT INTO HorarioAulas VALUES(3,21);
 INSERT INTO HorarioAulas VALUES(2,22);
 INSERT INTO HorarioAulas VALUES(1,23);
 INSERT INTO HorarioAulas VALUES(9,23);
+INSERT INTO HorarioAulas VALUES(10,24);
+
 
 
 

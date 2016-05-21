@@ -66,6 +66,17 @@ AND
 Aula.Nome="Zumba";
 
 --Nome das aulas onde já ocorreu o número de clientes presentes na aula ser igual a lotação da aula.
+CREATE VIEW LotacaoAula AS
+SELECT DISTINCT AulaCliente.idAula,  COUNT(AulaCliente.idAula) AS Participantes
+FROM AulaCliente
+GROUP BY AulaCliente.idAula;
+
+SELECT DISTINCT Aula.Nome, DiasDaSemana.dia, DiasDaSemana.HoraInicio
+From Aula, LotacaoAula, DiasDaSemana, HorarioAulas
+WHERE LotacaoAula.Participantes = Aula.Lotacao
+AND Aula.idAula=LotacaoAula.idAula
+AND LotacaoAula.idAula=HorarioAulas.idAula
+AND HorarioAulas.idDiaDaSemana=DiasDaSemana.idDiaDaSemana;
 
 
 --Nome, id do cliente e id do contrato dos clientes que possuí treinador.
