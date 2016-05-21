@@ -41,8 +41,6 @@ CREATE TABLE DiasDaSemana(dia STRING,
 CREATE TABLE Modalidade(nome STRING PRIMARY KEY);
 
 CREATE TABLE Aula(idAula int PRIMARY KEY,
-                  HoraInicio STRING ,
-                  Duracao int CHECK (Duracao > 0),
                   Lotacao int CHECK (Lotacao >= 0),
                   idFunc int REFERENCES Professor,
                   NumeroSala int REFERENCES SalaDeTreino,
@@ -74,4 +72,8 @@ CREATE TABLE Horario(idFuncionario int REFERENCES Funcionario,
                        
 CREATE TABLE AulaCliente(idCliente int REFERENCES Cliente, 
                          idAula int REFERENCES Aula);
+                         
+                         
+CREATE TABLE HorarioAulas(idAula int REFERENCES Aula,
+                          idDiaDaSemana int REFERENCES DiasDaSemana);
                          
