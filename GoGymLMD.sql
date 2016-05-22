@@ -2,7 +2,6 @@
 .read GoGymInfo.sql
 
 --TODO
---update relatorio (capa, uml)
 
 
 
@@ -35,8 +34,6 @@ SELECT Nome
 FROM SalaCliente
 GROUP BY NOME
 HAVING Count(*) =6;
-
---Pares de clientes que frequentam a mesma modalidade, sem repetições.
 
 
 --Nome dos professores que deram aulas ao "Cristiano Ronaldo".
@@ -131,14 +128,14 @@ WHERE AulaCliente.idAula = Aula.idAula
 GROUP BY Aula.Nome
 ORDER BY COUNT(*) DESC;
 
---aulas que a Maria Joao frequentou
+--aulas que o Cristiano Ronaldo frequentou
 SELECT Aula.Nome, DiasDaSemana.dia AS Dia, DiasDaSemana.HoraInicio
 FROM Aula, Cliente, AulaCliente, HorarioAulas, DiasDaSemana
 WHERE AulaCliente.idCliente=Cliente.idCliente
 AND Aula.idAula=AulaCliente.idAula
 AND AulaCliente.idAula = HorarioAulas.idAula
 ANd HorarioAulas.idDiaDaSemana=DiasDaSemana.idDiaDaSemana
-AND Cliente.Nome="Maria Joao";
+AND Cliente.Nome="Cristiano Ronaldo";
 
 --nome de pagamentos em falta
 SELECT Cliente.Nome
