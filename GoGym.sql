@@ -2,7 +2,7 @@
 .headers on
 .nullvalue NULL
 
-CREATE TABLE Ginasio(idGinasio int PRIMARY KEY, 
+CREATE TABLE Ginasio(idGinasio int PRIMARY KEY,
                     LotaçãoMaxima int CHECK (LotaçãoMaxima > 0),
                     Morada STRING,
                     NumeroDeBalnearios int CHECK (NumeroDeBalnearios > 0),
@@ -22,8 +22,8 @@ CREATE TABLE Cliente(idCliente int PRIMARY KEY,
 CREATE TABLE Funcionario(idFuncionario int PRIMARY KEY,
                       Salario int CHECK (Salario > 0),
                       CodigoPostal STRING,
-                      DataDeNascimento DATE, 
-                      Morada STRING, 
+                      DataDeNascimento DATE,
+                      Morada STRING,
                       Nome STRING,
                       NumeroDeTelefone int,
                       idGinasio int REFERENCES Ginasio);
@@ -33,9 +33,9 @@ CREATE TABLE Treinador(PersonalTrainer boolean,
 
 CREATE TABLE Professor(idProfessor int REFERENCES Funcionario PRIMARY KEY);
 
-CREATE TABLE DiasDaSemana(dia STRING, 
+CREATE TABLE DiasDaSemana(dia STRING,
                           idDiaDaSemana int PRIMARY KEY,
-                          HoraFim STRING, 
+                          HoraFim STRING,
                           HoraInicio STRING,
                           idGinasio int REFERENCES Ginasio);
 
@@ -51,13 +51,13 @@ CREATE TABLE SalaDeTreino(NumeroSala int PRIMARY KEY,
                           dimensao int CHECK (dimensao >0),
                           idGinasio REFERENCES Ginasio);
 
-CREATE TABLE EquipamentoTreino(nome STRING PRIMARY KEY, 
+CREATE TABLE EquipamentoTreino(nome STRING PRIMARY KEY,
                               quantidade int CHECK (quantidade >= 0),
                               NumeroSala REFERENCES SalaDeTreino);
 
 CREATE TABLE Contrato(NumeroDeContrato int PRIMARY KEY,
                       DataDeAbertura DATE,
-                      DataDeEncerramento DATE, 
+                      DataDeEncerramento DATE,
                       DataUltimoPagamento DATE,
                       Preco int CHECK (Preco >=0),
                       idCliente REFERENCES Cliente,
@@ -70,11 +70,14 @@ CREATE TABLE OffPeak(HorarioInterdito STRING, NumeroDeContrato int REFERENCES Co
 
 CREATE TABLE Horario(idFuncionario int REFERENCES Funcionario,
                        DiaDaSemana REFERENCES DiasDaSemana);
-                       
-CREATE TABLE AulaCliente(idCliente int REFERENCES Cliente, 
+
+CREATE TABLE AulaCliente(idCliente int REFERENCES Cliente,
                          idAula int REFERENCES Aula);
-                         
-                         
+
+
 CREATE TABLE HorarioAulas(idAula int REFERENCES Aula,
                           idDiaDaSemana int REFERENCES DiasDaSemana);
-                         
+
+
+CREATE TABLE ModProfessor(idProfessor int REFERENCES Professor,
+                          nome REFERENCES Modalidade);

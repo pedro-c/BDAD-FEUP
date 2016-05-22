@@ -265,5 +265,7 @@ INSERT INTO HorarioAulas VALUES(9,23);
 INSERT INTO HorarioAulas VALUES(10,24);
 
 
-
-
+INSERT INTO ModProfessor VALUES(5,"Maquinas");
+INSERT INTO ModProfessor VALUES(6,"Body Pump");
+INSERT INTO ModProfessor VALUES(7,"Zumba");
+INSERT INTO ModProfessor VALUES(8,"Gap");

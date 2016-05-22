@@ -79,11 +79,21 @@ AND LotacaoAula.idAula=HorarioAulas.idAula
 AND HorarioAulas.idDiaDaSemana=DiasDaSemana.idDiaDaSemana;
 
 
---Nome, id do cliente e id do contrato dos clientes que possuí treinador.
+--Nome de cada treinador e id dos seus clientes.
+SELECT Funcionario.nome,Cliente.idCliente
+FROM Funcionario,Cliente
+WHERE Funcionario.idFuncionario in (SELECT Treinador.idTreinador
+FROM Treinador)
+AND Cliente.idFuncionario=Funcionario.idFuncionario
+ORDER BY Funcionario.nome;
 
-
---Nome,id do treinador e modalidades do treinador que possuí maior salário.
-
+--Nome,id do professor possuí maior salário.
+SELECT Funcionario.nome,Funcionario.idFuncionario
+FROM Funcionario
+WHERE Funcionario.Salario=(SELECT MAX(Funcionario.Salario)
+FROM Funcionario)
+AND Funcionario.idFuncionario in (SELECT ModProfessor.idProfessor
+FROM ModProfessor);
 
 --Aulas de "Yoga" que foram dadas na sala 4.
 SELECT DiasDaSemana.dia, DiasDaSemana.HoraInicio
@@ -99,8 +109,20 @@ WHERE Nome = "Yoga"
 AND
 NumeroSala = 4);
 
---Nome e id dos clientes "Off-Peak" que realizaram aulas com a professora "Sancha".
-
+--Nome e id dos clientes "Off-Peak" que realizaram aulas com a professora "Sancha Costa".
+SELECT Cliente.nome,Cliente.idCliente
+FROM Cliente
+WHERE Cliente.idCliente in (SELECT Contrato.idCliente
+                            FROM Contrato
+                            WHERE Contrato.NumeroDeContrato in (SELECT OffPeak.NumeroDeContrato
+                                                                FROM OffPeak))
+AND Cliente.idCliente in (SELECT AulaCliente.idCliente
+                          FROM AulaCliente
+                          WHERE AulaCliente.idAula in (SELECT Aula.idAula
+                          FROM Aula
+                          WHERE Aula.idFunc in (SELECT Funcionario.idFuncionario
+                          FROM Funcionario
+                          WHERE Funcionario.nome="Sancha Costa")));
 
 
 --Income mensal do ginasios
@@ -108,10 +130,10 @@ SELECT SUM (Preco) FROM Contrato;
 
 
 --Ordem decrescente das aulas com mais clientes
-SELECT Aula.Nome, COUNT(*) 
+SELECT Aula.Nome, COUNT(*)
 FROM AulaCliente, Aula
 WHERE AulaCliente.idAula = Aula.idAula
-GROUP BY Aula.Nome 
+GROUP BY Aula.Nome
 ORDER BY COUNT(*) DESC;
 
 --aulas que a Maria Joao frequentou
@@ -123,17 +145,15 @@ AND AulaCliente.idAula = HorarioAulas.idAula
 ANd HorarioAulas.idDiaDaSemana=DiasDaSemana.idDiaDaSemana
 AND Cliente.Nome="Maria Joao";
 
---nome de pagamentos em falta 
+--nome de pagamentos em falta
 SELECT Cliente.Nome
 FROM Contrato, Cliente
 WHERE Contrato.idCliente=Cliente.idCliente
 AND Contrato.DataUltimoPagamento < strftime('%Y%m%d', date('now','start of month'));
 
 --Clientes que nao estao inscritos em nenhuma aula
-SELECT Cliente.Nome 
+SELECT Cliente.Nome
 FROM Cliente
 WHERE Cliente.idCliente in
-(SELECT Cliente.idCliente FROM Cliente 
+(SELECT Cliente.idCliente FROM Cliente
 EXCEPT SELECT AulaCliente.idCliente FROM AulaCliente);
-
-
