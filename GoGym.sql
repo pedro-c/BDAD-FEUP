@@ -83,8 +83,8 @@ CREATE TABLE HorarioAulas(idAula int REFERENCES Aula,
 CREATE TABLE ModProfessor(idProfessor int REFERENCES Professor,
                           nome REFERENCES Modalidade);
 
---CREATE TRIGGER IF NOT EXISTS UpdateLotacaoGym
---AFTER INSERT ON Cliente
---WHEN (NEW.Ativo=1)
---BEGIN UPDATE Ginasio SET LotacaoAtual=LotacaoAtual+1
---END;
+CREATE TRIGGER IF NOT EXISTS UpdateLotacaoGym
+AFTER INSERT ON Cliente
+WHEN (NEW.Ativo=1)
+BEGIN UPDATE Ginasio SET LotacaoAtual=LotacaoAtual+1;
+END;
