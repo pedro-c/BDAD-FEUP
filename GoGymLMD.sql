@@ -111,18 +111,13 @@ NumeroSala = 4);
 
 --Nome e id dos clientes "Off-Peak" que realizaram aulas com a professora "Sancha Costa".
 SELECT Cliente.nome,Cliente.idCliente
-FROM Cliente
-WHERE Cliente.idCliente in (SELECT Contrato.idCliente
-                            FROM Contrato
-                            WHERE Contrato.NumeroDeContrato in (SELECT OffPeak.NumeroDeContrato
-                                                                FROM OffPeak))
-AND Cliente.idCliente in (SELECT AulaCliente.idCliente
-                          FROM AulaCliente
-                          WHERE AulaCliente.idAula in (SELECT Aula.idAula
-                          FROM Aula
-                          WHERE Aula.idFunc in (SELECT Funcionario.idFuncionario
-                          FROM Funcionario
-                          WHERE Funcionario.nome="Sancha Costa")));
+FROM Cliente,AulaCliente
+WHERE Cliente.idCliente=AulaCliente.idCliente
+AND AulaCliente.idAula=(SELECT Aula.idAula
+FROM Aula
+WHERE Aula.idFunc=(SELECT Funcionario.idFuncionario
+FROM Funcionario
+WHERE Funcionario.nome="Sancha Costa"));
 
 
 --Income mensal do ginasios
